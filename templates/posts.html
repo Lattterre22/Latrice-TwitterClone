@@ -1,0 +1,127 @@
+{% extends "base.html" %}{% block content %}{% load static %}
+
+<div class="leftverticalmenu">
+  <a href="#" class="fa fa-twitter" id="twittericon"></a>
+  <ul>
+    <li><i class="material-icons">home</i><a href="#" title="Go to Home">Home</a></li>
+    <li><i class="material-icons">explore</i><a href="#" title="Explore">Explore</a></li>
+    <li><i class="material-icons">notifications</i><a href="#" title="Notification">Notification</a></li>
+    <li><i class="material-icons">message</i><a href="#" title="Message">Message</a></li>
+    <li><i class="material-icons">bookmark</i><a href="#" title="Bookmarks">Bookmarks</a></li>
+    <li><i class="material-icons">list</i><a href="#" title="Lists">Lists</a></li>
+    <li><i class="material-icons">account_circle</i><a href="#" title="Profile">Profile</a></li>
+  </ul>
+  <figure>Tweet</figure>
+</div>
+<div class="flexcontainer">
+  <div class="middlecontainer">
+    </section>
+    <section class="post_form">
+      <h2>Twitter Clone</h2>
+      <form action="/" method="POST">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Name" required>
+        <textarea name="body" placeholder="Tell us anything" required></textarea>
+        <div class="button-container">
+          <input type="submit" value="Post"/>
+          <button type="button" class="upload-button">
+            <i class="fas fa-upload"></i> Upload
+          </button>
+        </div>
+      </form>
+    </section>
+    <section class="posts">
+      <ul>
+        {% for post in posts %}
+        <li>
+          <div class="logo">
+            <img src="{% static 'static/img/profile-user.png' %}" alt="User">
+          </div>
+          <div class="name_body">
+            <div class="name">{{ post.name }}</div>
+            <div class="datetime">{{ post.created_at }}</div>
+            <p>{{ post.body }}</p>
+            <div class="twitter_icons">
+              <i class="material-icons thumbs-up">thumb_up</i> 
+              <span class="thumbs-count">0</span> 
+              <i class="material-icons">people</i> 
+              <i class="material-icons">reply</i> 
+            </div>
+          </div>            
+          <div class="menu_icon js-dropdown">
+            <img class="menu_icon" src="{% static 'static/img/menu.png' %}">
+            <div class="menu">
+              <a href="edit/{{ post.id }}">Edit</a>
+              <a href="delete/{{ post.id }}">Delete</a>
+            </div>
+          </div>   
+        </li>
+        {% endfor %}
+      </ul>
+    </section>    
+    </div>
+  <div class="rightcontainer">
+    <section class="searchbar">
+      <div class="searchicon"><i class="fa fa-search" aria-hidden="true"></i></div>
+      <input type="text" name="search" id="searchbox" placeholder="Search Twitter">
+    </section>
+    <section class="twittermedia">
+      </section>
+      <section class="trendingtopics">
+        <h2>Trending Topics</h2>
+        <ul>
+          <li>#Shoes</li>
+          <li>#Dogs</li>
+          <li>#Food</li>
+          <li>#Turtles</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.14.0/cloudinary-core-shrinkwrap.min.js"></script>
+  <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+  <script src="posts.js" type="module"></script>
+  <script src="cloudinary.js" type="module"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.thumbs-up').click(function() {
+      var count = parseInt($(this).next('.thumbs-count').text());
+      var isActive = $(this).hasClass('active');
+
+      if (isActive) {
+        count--;
+        $(this).next('.thumbs-count').text(count);
+        $(this).removeClass('active');
+      } else {
+        count++;
+        $(this).next('.thumbs-count').text(count);
+        $(this).addClass('active');
+      }
+    });
+
+    var cloudinaryWidget = cloudinary.createUploadWidget(
+      {
+        cloudName: 'dnw6jobbe',
+        uploadPreset:  '181898929544979',
+        sources: ['local', 'url'],
+        multiple: false,
+        maxFileSize: 5000000, // 5MB
+      },
+      function(error, result) {
+        if (!error && result && result.event === 'success') {
+          var imageUrl = result.info.secure_url;
+     
+          $('#image-url').val(imageUrl);
+        }
+      }
+    );
+
+    $('.upload-button').on('click', function() {
+      cloudinaryWidget.open();
+    });
+  });
+</script>
+{% endblock %}
+</body>
+</html>

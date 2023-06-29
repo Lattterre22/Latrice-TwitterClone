@@ -1,0 +1,27 @@
+{% load cloudinary %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twitter Clone</title>
+    {% load static %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/edit.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/tweetactions.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/uploadbutton.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-ez4h+9ePqXVvzT+6FtcOJq+5WUCsqs1blAQ75w2MGPewIFWt5AcWAtdqb/sLj4cc" crossorigin="anonymous">
+  </head>
+  <body>
+    <!-- Your content goes here -->
+        {%block content%}{{content}}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        {%endblock%} 
+
+    </body>
+    <html>
